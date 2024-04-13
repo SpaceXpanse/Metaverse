@@ -17,6 +17,9 @@ get hooked, others get bored. Finding out for yourself is easy – simply give i
 a try. SpaceXpanse is free, so you don’t need to invest more than a bit of your
 spare time. Enjoy!
 
+P.S. Everyone can create a pull request for their metaverse to be added here 
+or they can fork it altogether to create a completely different project within the platform.
+
 ## License 
 
 SpaceXpanse is published as an Open Source project under the MIT License (see
