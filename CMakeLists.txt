@@ -270,20 +270,20 @@ endif()
 
 option(SPACEXPANSE_BUILD_WITH_DX7
 	"Compile SpaceXpanse with built-in DX7 graphics. If off, the server version for external graphics clients will be built."
-	ON
+	OFF
 )
 
 option(
 	SPACEXPANSE_BUILD_D3D9CLIENT
 	"Build the D3D9 graphics client"
-	OFF
+	ON
 )
 
 option(
 	SPACEXPANSE_BUILD_XRSOUND
 	"Build XRSound module to enable sound in SpaceXpanse"
-	ON
-#   OFF
+#	ON
+   OFF
 )
 
 option(SPACEXPANSE_MAKE_DOC
