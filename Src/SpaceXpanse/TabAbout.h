@@ -24,6 +24,7 @@ namespace spacexpanse {
 
 	private:
 		static INT_PTR CALLBACK AboutProc(HWND, UINT, WPARAM, LPARAM);
+		static INT_PTR CALLBACK AboutHello(HWND, UINT, WPARAM, LPARAM);
 	};
 
 }

@@ -44,6 +44,7 @@
 #define IDB_BITMAP2                     194
 #define IDD_NET_CREATE                  198
 #define IDD_MSG                         199
+#define IDD_HELLO                       303
 #define IDT_CONTRIB                     200
 #define IDT_DISCLAIMER                  201
 #define IDD_NAVAID                      201
@@ -220,6 +221,7 @@
 #define IDC_ABT_WEB                     1701
 #define IDC_ABT_CONTRIB                 1702
 #define IDC_ABT_DISCLAIM                1703
+#define IDC_ABT_HELLO                   1715
 #define IDC_ABT_TXT_BUILDDATE           1704
 #define IDC_ABT_GRP_SPACEXPANSE             1705
 #define IDC_ABT_GRP_WEB                 1706
