@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../../../../../msys64/home/dobri/curl/include/curl/curl.h"
+#include "../../utils/curl/include/curl.h"
 //-----------------------------------------------------------------------------
 // AboutTab class
 HWND g_hListBox;
