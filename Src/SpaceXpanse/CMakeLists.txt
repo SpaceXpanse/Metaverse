@@ -169,6 +169,7 @@ set(SpaceXpanse_common_libs
 	${HTMLHELP_LIB}
 	$<TARGET_FILE:SpaceXpansesdk>
 	$<TARGET_FILE:DlgCtrl>
+	C:/msys64/home/dobri/curl/out/build/x64-Debug/lib/libcurl-d_imp.lib
 )
 set(SpaceXpanse_dx7_libs
 	dxguid.lib
@@ -258,7 +259,7 @@ if(BUILD_SPACEXPANSE_SERVER)
 	target_link_libraries(SpaceXpanse_server
 		${SpaceXpanse_common_libs}
 		${SpaceXpanse_server_libs}
-	)
+		)
 
 	add_dependencies(SpaceXpanse_server
 		${SpaceXpanse_depends}

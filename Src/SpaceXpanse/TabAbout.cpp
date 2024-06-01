@@ -17,10 +17,16 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../../../../../../msys64/home/dobri/curl/include/curl/curl.h"
 //-----------------------------------------------------------------------------
 // AboutTab class
 HWND g_hListBox;
 DWORD WINAPI RedirectToListBox(LPVOID lpParameter);
+void SentRodMessage(HWND hWnd);
 
 spacexpanse::AboutTab::AboutTab (const LaunchpadDialog *lp): LaunchpadTab (lp)
 {
@@ -121,19 +127,109 @@ INT_PTR CALLBACK spacexpanse::AboutTab::AboutProc(HWND hWnd, UINT uMsg, WPARAM w
 //-----------------------------------------------------------------------------
 INT_PTR CALLBACK spacexpanse::AboutTab::AboutHello(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	HWND hEdit1;
+	HWND hEdit2;
 	switch (uMsg) {
 	case WM_INITDIALOG:
 		g_hListBox = GetDlgItem(hWnd, IDC_LIST1);
 		CreateThread(NULL, 0, RedirectToListBox, (LPVOID)hWnd, 0, NULL);
+		hEdit1 = GetDlgItem(hWnd, IDC_SCN_SAVE);
+		SetWindowText(hEdit1, "p/dobri");
+		hEdit2 = GetDlgItem(hWnd, IDC_SAVE_NAME);
+		SetWindowText(hEdit2, "Test");
 		return TRUE;
 	case WM_COMMAND:
 		if (IDOK == LOWORD(wParam) || IDCANCEL == LOWORD(wParam))
+		{
 			EndDialog(hWnd, TRUE);
+		}
+		else if (IDC_MSG == LOWORD(wParam))
+		{
+			SentRodMessage(hWnd);
+		}
 		return TRUE;
 	}
 	return FALSE;
 }
 
+struct MemoryStruct {
+	char* memory;
+	size_t size;
+};
+
+static size_t WriteMemoryCallback(void* contents, size_t size, size_t nmemb, void* userp) {
+	size_t realsize = size * nmemb;
+	struct MemoryStruct* mem = (struct MemoryStruct*)userp;
+
+	char* ptr = (char*) realloc(mem->memory, mem->size + realsize + 1);
+	if (ptr == NULL) {
+		// Out of memory!
+		return 0;
+	}
+
+	mem->memory = ptr;
+	memcpy(&(mem->memory[mem->size]), contents, realsize);
+	mem->size += realsize;
+	mem->memory[mem->size] = 0;
+
+	return realsize;
+}
+
+void SentRodMessage(HWND hWnd)
+{
+	CURL* curl;
+	CURLcode res;
+	struct MemoryStruct chunk;
+
+	chunk.memory = (char*) malloc(1); 
+	chunk.size = 0; 
+
+	HWND hEdit1 = GetDlgItem(hWnd, IDC_SCN_SAVE);
+	char currentUser[256];
+	GetWindowText(hEdit1, currentUser, 256);
+	HWND hEdit2 = GetDlgItem(hWnd, IDC_SAVE_NAME);
+	char currentMess[1024];
+	GetWindowText(hEdit2, currentMess, 1024);
+
+	const char* url = "http://user1:pass1@127.0.0.1:18399/";
+	std::string json_data = "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"name_update\", \"params\": [\"";
+	json_data = json_data + currentUser;
+	json_data = json_data + "\", \"{\\\"g\\\":{\\\"helloworld\\\":{\\\"m\\\":\\\"";
+	json_data = json_data + currentMess;
+	json_data = json_data + "\\\"}}}\"]}";
+
+	curl_global_init(CURL_GLOBAL_DEFAULT);
+	curl = curl_easy_init();
+	if (curl) {
+		struct curl_slist* headers = NULL;
+		headers = curl_slist_append(headers, "Content-Type: application/json;");
+
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_HTTP_VERSION, (long)CURL_HTTP_VERSION_1_0);
+		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data.c_str());
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)&chunk);
+
+		res = curl_easy_perform(curl);
+
+		if (res != CURLE_OK) {
+			fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+			MessageBox(hWnd, "Request Failed!", "Error", MB_OK | MB_ICONERROR);
+		}
+		else {
+			MessageBox(hWnd, chunk.memory, "JSON-RPC Response", MB_OK | MB_ICONINFORMATION);
+		}
+
+		// Cleanup
+		curl_easy_cleanup(curl);
+		curl_slist_free_all(headers);
+		free(chunk.memory);
+	}
+
+	curl_global_cleanup();
+}
 
 DWORD WINAPI RedirectToListBox(LPVOID lpParameter) {
 	HINSTANCE hDLL = LoadLibrary("libhello.dll");
