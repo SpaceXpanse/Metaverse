@@ -144,6 +144,14 @@ BEGIN
         BOTTOMMARGIN, 251
     END
 
+    IDD_PAGE_MTL, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 273
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 251
+    END
+
     IDD_PAGE_JOY, DIALOG
     BEGIN
         LEFTMARGIN, 4
@@ -463,13 +471,14 @@ BEGIN
     PUSHBUTTON      "&Help",9,248,305,48,18
     PUSHBUTTON      "E&xit",IDEXIT,299,305,48,18
     PUSHBUTTON      "Scenarios ",IDC_MNU_SCN,6,43,59,14,BS_RIGHT | WS_GROUP
-    PUSHBUTTON      "Parameters ",IDC_MNU_PRM,6,58,59,14,BS_RIGHT
-    PUSHBUTTON      "Visual effects ",IDC_MNU_VIS,6,73,59,14,BS_RIGHT
-    PUSHBUTTON      "Modules ",IDC_MNU_MOD,6,88,59,14,BS_RIGHT
-    PUSHBUTTON      "Video ",IDC_MNU_VID,6,103,59,14,BS_RIGHT
-    PUSHBUTTON      "Joystick ",IDC_MNU_JOY,6,118,59,14,BS_RIGHT
-    PUSHBUTTON      "Extra ",IDC_MNU_EXT,6,133,59,14,BS_RIGHT
-    PUSHBUTTON      "About ",IDC_MNU_ABT,6,148,59,14,BS_RIGHT
+    PUSHBUTTON      "Metalog ",IDC_MNU_MTL,6,58,59,14,BS_RIGHT
+    PUSHBUTTON      "Parameters ",IDC_MNU_PRM,6,73,59,14,BS_RIGHT
+    PUSHBUTTON      "Visual effects ",IDC_MNU_VIS,6,88,59,14,BS_RIGHT
+    PUSHBUTTON      "Modules ",IDC_MNU_MOD,6,103,59,14,BS_RIGHT
+    PUSHBUTTON      "Video ",IDC_MNU_VID,6,118,59,14,BS_RIGHT
+    PUSHBUTTON      "Joystick ",IDC_MNU_JOY,6,133,59,14,BS_RIGHT
+    PUSHBUTTON      "Extra ",IDC_MNU_EXT,6,148,59,14,BS_RIGHT
+    PUSHBUTTON      "About ",IDC_MNU_ABT,6,163,59,14,BS_RIGHT
 //    CTEXT           "\r\nspacexpanse.org\r\n(c) 2022\r\nSpaceXpanse Team",IDC_BLACKBOX,218,0,138,37,0,WS_EX_RIGHT
 //    CONTROL         IDB_BANNER,IDC_LOGO,"Static",SS_BITMAP,0,0,249,37
 //    CONTROL         "",IDC_SHADOW,"Static",SS_OWNERDRAW,0,37,5,5
@@ -531,9 +540,19 @@ BEGIN
 //    LTEXT           "",IDC_ABT_TXT_WEBADDR,94,130,158,30
     LTEXT           "SpaceXpanse is published under the MIT License.\r\nDetails can be found under 'License' below.", IDC_ABT_TXT_LICENSE, 11, 177, 254, 28
     PUSHBUTTON      "License",IDC_ABT_DISCLAIM,54,210,48,14
-    PUSHBUTTON      "Hello World",IDC_ABT_HELLO,104,210,78,14
     PUSHBUTTON      "Credits and Contributions",IDC_ABT_CREDIT,184,210,88,14
     PUSHBUTTON      "Homepage", IDC_ABT_WEB, 4, 210, 48, 14
+END
+
+IDD_PAGE_MTL DIALOGEX 68, 43, 277, 254
+STYLE DS_SETFONT | DS_CONTROL | WS_CHILD
+CAPTION "SpaceXpanse Metalog"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_SCN_SAVE, 7, 301, 72, 16, ES_AUTOHSCROLL
+    EDITTEXT        IDC_SAVE_NAME, 100, 301, 480, 16, ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "SENT", IDC_MSG, 590, 301, 50, 14
+    LISTBOX         IDC_LIST1, 7, 7, 629, 290, WS_CHILD | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_PAGE_JOY DIALOGEX 68, 43, 277, 254
@@ -1737,6 +1756,7 @@ STRINGTABLE
 BEGIN
     IDS_STRING1             "__DATE__"
     IDS_TABSCENARIO         "Scenario"
+    IDS_TABMETALOG          "Metalog"
     IDS_TABPARAMS           "Parameters"
     IDS_TABVISUAL           "Visual effects"
     IDS_TABMODULE           "Modules"

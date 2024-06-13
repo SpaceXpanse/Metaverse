@@ -2,20 +2,20 @@
 // Licensed under the MIT License
 
 //-----------------------------------------------------------------------------
-// Launchpad tab definition: class AboutTab
-// Tab for "about" page
+// Launchpad tab definition: class MetalogTab
+// Tab for "metalog" page
 //-----------------------------------------------------------------------------
 
-#ifndef __TABABOUT_H
-#define __TABABOUT_H
+#ifndef __TABMETALOG_H
+#define __TABMETALOG_H
 
 #include "LpadTab.h"
 
 namespace spacexpanse {
 
-	class AboutTab : public LaunchpadTab {
+	class MetalogTab : public LaunchpadTab {
 	public:
-		AboutTab(const LaunchpadDialog* lp);
+		MetalogTab(const LaunchpadDialog* lp);
 
 		void Create();
 		bool OpenHelp();
@@ -23,9 +23,10 @@ namespace spacexpanse {
 		INT_PTR TabProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	private:
-		static INT_PTR CALLBACK AboutProc(HWND, UINT, WPARAM, LPARAM);
+		static INT_PTR CALLBACK MetalogProc(HWND, UINT, WPARAM, LPARAM);
+		static INT_PTR CALLBACK MetalogHello(HWND, UINT, WPARAM, LPARAM);
 	};
 
 }
 
-#endif // !__TABABOUT_H
+#endif // !__TABMETALOG_H

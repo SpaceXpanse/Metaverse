@@ -11,16 +11,18 @@
 // Property page indices
 #define PG_SCN  0
 #define PG_OPT  1
-#define PG_VIS  2
-#define PG_MOD  3
-#define PG_VID  4
-#define PG_JOY  5
-#define PG_EXT  6
-#define PG_ABT  7
-#define PG_WAIT 8
-#define PG_NET  9
-#define PG_NET2 10
-#define PG_NET3 11
+#define PG_MTL  2
+#define PG_VIS  3
+#define PG_MOD  4
+#define PG_VID  5
+#define PG_JOY  6
+#define PG_EXT  7
+#define PG_ABT  8
+#define PG_WAIT 9
+#define PG_NET  10
+#define PG_NET2 11
+#define PG_NET3 12
+
 
 namespace spacexpanse {
 

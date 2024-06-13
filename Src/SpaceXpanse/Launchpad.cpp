@@ -19,6 +19,7 @@
 #include "TabJoystick.h"
 #include "TabExtra.h"
 #include "TabAbout.h"
+#include "TabMetalog.h"
 #include "Config.h"
 #include "Log.h"
 #include "Util.h"
@@ -96,6 +97,7 @@ bool spacexpanse::LaunchpadDialog::Create (bool startvideotab)
 		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, AppDlgProc);
 		AddTab (new ScenarioTab (this)); TRACENEW
 		AddTab (new ParameterTab (this)); TRACENEW
+		AddTab (new MetalogTab (this)); TRACENEW
 		AddTab (new VisualTab (this)); TRACENEW
 		AddTab (new ModuleTab (this)); TRACENEW
 		AddTab (new DefVideoTab (this)); TRACENEW
@@ -407,6 +409,9 @@ INT_PTR spacexpanse::LaunchpadDialog::DlgProc (HWND hWnd, UINT uMsg, WPARAM wPar
 			return TRUE;
 		case IDC_MNU_ABT:
 			SwitchTabPage (hWnd, PG_ABT);
+			return TRUE;
+		case IDC_MNU_MTL:
+			SwitchTabPage (hWnd, PG_MTL);
 			return TRUE;
 		}
 		break;

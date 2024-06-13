@@ -33,6 +33,7 @@ set(common_src
 	Launchpad.cpp
 	LpadTab.cpp
 	TabAbout.cpp
+	TabMetalog.cpp
 	TabExtra.cpp
 	TabJoystick.cpp
 	TabModule.cpp

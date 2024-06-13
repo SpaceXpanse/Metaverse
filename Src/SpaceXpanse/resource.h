@@ -5,13 +5,14 @@
 #define IDS_STRING1                     1
 #define IDR_RT_MANIFEST1                1
 #define IDS_TABSCENARIO                 2
-#define IDS_TABPARAMS                   3
-#define IDS_TABVISUAL                   4
-#define IDS_TABMODULE                   5
-#define IDS_TABVIDEO                    6
-#define IDS_TABJOYSTICK                 7
-#define IDS_TABEXTRA                    8
-#define IDS_TABABOUT                    9
+#define IDS_TABMETALOG                  3
+#define IDS_TABPARAMS                   4
+#define IDS_TABVISUAL                   5
+#define IDS_TABMODULE                   6
+#define IDS_TABVIDEO                    7
+#define IDS_TABJOYSTICK                 8
+#define IDS_TABEXTRA                    9
+#define IDS_TABABOUT                    10
 #define IDI_MAIN_ICON                   101
 #define IDI_MAIN_ICON_BAK               102
 #define IDR_MAIN_ACCEL                  113
@@ -30,6 +31,7 @@
 #define IDD_PAGE_JOY                    177
 #define IDD_PAGE_EXT                    178
 #define IDD_PAGE_ABT                    179
+#define IDD_PAGE_MTL                    180
 #define IDD_SAVESCN                     181
 #define IDD_CAMERA                      182
 #define IDD_CAM_PG_TARGET               184
@@ -234,6 +236,23 @@
 #define IDC_ABT_GRP_COMPONENT           1713
 #define IDC_ABT_LBOX_COMPONENT          1714
 
+#define IDC_MTL_CREDIT                  1800
+#define IDC_MTL_WEB                     1801
+#define IDC_MTL_CONTRIB                 1802
+#define IDC_MTL_DISCLAIM                1803
+#define IDC_MTL_HELLO                   1815
+#define IDC_MTL_TXT_BUILDDATE           1804
+#define IDC_MTL_GRP_SPACEXPANSE         1805
+#define IDC_MTL_GRP_WEB                 1806
+#define IDC_MTL_ICON_DG                 1807
+#define IDC_MTL_TXT_NAME                1808
+#define IDC_MTL_TXT_WEB                 1809
+#define IDC_MTL_TXT_WEBADDR             1810
+#define IDC_MTL_TXT_CPR                 1811
+#define IDC_MTL_TXT_LICENSE             1812
+#define IDC_MTL_GRP_COMPONENT           1813
+#define IDC_MTL_LBOX_COMPONENT          1814
+
 #define IDC_SCN_STATIC1                 1087
 #define IDC_SCN_LIST                    1090
 #define IDC_SCN_DESC                    1092
@@ -380,6 +399,7 @@
 #define IDC_MNU_JOY                     1264
 #define IDC_MNU_EXT                     1265
 #define IDC_MNU_ABT                     1266
+#define IDC_MNU_MTL                     1404
 #define IDC_SHADOW                      1267
 #define IDC_BLACKBOX                    1268
 #define IDC_OPT_STATIC1                 1270
