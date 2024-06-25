@@ -50,12 +50,31 @@ void spacexpanse::MetalogTab::Create ()
 	g_hListBoxM = GetDlgItem(hTab, IDC_LIST1);
 	CreateThread(NULL, 0, RedirectToListBoxM, (LPVOID)hTab, 0, NULL);
 	hEdit1 = GetDlgItem(hTab, IDC_SCN_SAVE);
-	SetWindowText(hEdit1, "p/dobri");
+	SetWindowText(hEdit1, "p/");
 	hEdit2 = GetDlgItem(hTab, IDC_SAVE_NAME);
-	SetWindowText(hEdit2, "Test");
+	Edit_SetCueBannerText(hEdit2, L"Your message here");
+//	SetWindowText(hEdit2, "Your message here");
 }
 
 //-----------------------------------------------------------------------------
+
+BOOL spacexpanse::MetalogTab::Size (int w, int h)
+{
+	SetWindowPos (GetDlgItem (hTab, IDC_LIST1), NULL,
+		7, 7, w - 20, h - 50,
+		SWP_NOZORDER);
+	SetWindowPos (GetDlgItem (hTab, IDC_SCN_SAVE), NULL,
+		7, h-30, 70, 20,
+		SWP_NOZORDER);
+	SetWindowPos (GetDlgItem (hTab, IDC_SAVE_NAME), NULL,
+		97, h-30, w - 160, 20,
+		SWP_NOZORDER);
+	SetWindowPos (GetDlgItem (hTab, IDC_MSG), NULL,
+		w - 60, h-33, 50, 24,
+		SWP_NOZORDER);
+
+	return NULL;
+}
 
 INT_PTR spacexpanse::MetalogTab::TabProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

@@ -19,12 +19,12 @@ namespace spacexpanse {
 
 		void Create();
 		bool OpenHelp();
-
+		BOOL Size(int w, int h);
 		INT_PTR TabProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	private:
-		static INT_PTR CALLBACK MetalogProc(HWND, UINT, WPARAM, LPARAM);
-		static INT_PTR CALLBACK MetalogHello(HWND, UINT, WPARAM, LPARAM);
+//		static INT_PTR CALLBACK MetalogProc(HWND, UINT, WPARAM, LPARAM);
+//		static INT_PTR CALLBACK MetalogHello(HWND, UINT, WPARAM, LPARAM);
 	};
 
 }
