@@ -53,6 +53,7 @@ void spacexpanse::MetalogTab::Create ()
 	SetWindowText(hEdit1, "p/");
 	hEdit2 = GetDlgItem(hTab, IDC_SAVE_NAME);
 	Edit_SetCueBannerText(hEdit2, L"Your message here");
+	SendMessage(hEdit2, EM_LIMITTEXT, 160, 0);
 //	SetWindowText(hEdit2, "Your message here");
 }
 
