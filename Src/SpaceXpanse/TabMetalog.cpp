@@ -27,6 +27,7 @@
 HWND g_hListBoxM;
 DWORD WINAPI RedirectToListBoxM(LPVOID lpParameter);
 void SentRodMessageM(HWND hWnd);
+void SentNostrMessage(HWND hWnd);
 
 spacexpanse::MetalogTab::MetalogTab (const LaunchpadDialog *lp): LaunchpadTab (lp)
 {
@@ -68,9 +69,12 @@ BOOL spacexpanse::MetalogTab::Size (int w, int h)
 		7, h-30, 70, 20,
 		SWP_NOZORDER);
 	SetWindowPos (GetDlgItem (hTab, IDC_SAVE_NAME), NULL,
-		97, h-30, w - 160, 20,
+		97, h-30, w - 220, 20,
 		SWP_NOZORDER);
 	SetWindowPos (GetDlgItem (hTab, IDC_MSG), NULL,
+		w - 120, h-33, 50, 24,
+		SWP_NOZORDER);
+	SetWindowPos (GetDlgItem (hTab, IDC_BUTTON1), NULL,
 		w - 60, h-33, 50, 24,
 		SWP_NOZORDER);
 
@@ -84,6 +88,9 @@ INT_PTR spacexpanse::MetalogTab::TabProc (HWND hWnd, UINT uMsg, WPARAM wParam, L
 		switch (LOWORD(wParam)) {
 		case IDC_MSG:
 			SentRodMessageM(hWnd);
+			return TRUE;
+		case IDC_BUTTON1:
+			SentNostrMessage(hWnd);
 			return TRUE;
 		case IDC_MTL_CREDIT:
 			::OpenHelp(hWnd, "html\\Credit.chm", "Credit");
@@ -115,6 +122,37 @@ static size_t WriteMemoryCallback(void* contents, size_t size, size_t nmemb, voi
 	mem->memory[mem->size] = 0;
 
 	return realsize;
+}
+
+void SentNostrMessage(HWND hWnd)
+{
+	HINSTANCE hDLL = LoadLibrary("libSpaceXpanse.dll");
+	if (hDLL != NULL)
+	{
+		typedef const char* (*NostrMessageFunc)(const char*, const char*);
+		NostrMessageFunc MessageFunc = (NostrMessageFunc)GetProcAddress(hDLL, "nostr_message");
+        if (MessageFunc != nullptr)
+		{
+            // Извикване на функцията
+            std::string pubkey = "e7b4c8cba8a9f823e1a8f2c3d8f9e5c3f0a8b9c5e6d7f8e7c3a8f5e9f3c4d6e7";
+			HWND hEdit2 = GetDlgItem(hWnd, IDC_SAVE_NAME);
+			char currentMess[1024];
+			GetWindowText(hEdit2, currentMess, 1024);
+            std::string content = currentMess;
+
+			std::string result = MessageFunc(pubkey.c_str(), content.c_str());
+			
+//			MessageBox(NULL, result.c_str(), "Nostr", MB_OK);
+		}
+		else
+		{
+				MessageBox(NULL, "Failed to find function in DLL!", "Message", MB_OK | MB_ICONINFORMATION);
+		}
+		FreeLibrary(hDLL);
+	}
+	else {
+		MessageBox(NULL, "Failed to load DLL!", "Message", MB_OK | MB_ICONINFORMATION);
+	}	
 }
 
 void SentRodMessageM(HWND hWnd)
