@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        architecture: [x64, x86]
+        architecture: [x64]
       
     runs-on: windows-2019
 
