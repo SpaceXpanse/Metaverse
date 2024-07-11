@@ -79,7 +79,7 @@ jobs:
 
     - name: Test
       working-directory: ${{ github.workspace }}\out\build
-      run: ctest --build . --config RelWithDebInfo .
+      run: ctest --build-config RelWithDebInfo .
 
     - name: Install
       working-directory: ${{ github.workspace }}\out\build
