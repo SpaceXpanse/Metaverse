@@ -69,14 +69,14 @@ BOOL spacexpanse::MetalogTab::Size (int w, int h)
 		7, h-30, 70, 20,
 		SWP_NOZORDER);
 	SetWindowPos (GetDlgItem (hTab, IDC_SAVE_NAME), NULL,
-		97, h-30, w - 220, 20,
+		97, h-30, w - 160, 20,
 		SWP_NOZORDER);
 	SetWindowPos (GetDlgItem (hTab, IDC_MSG), NULL,
-		w - 120, h-33, 50, 24,
-		SWP_NOZORDER);
-	SetWindowPos (GetDlgItem (hTab, IDC_BUTTON1), NULL,
 		w - 60, h-33, 50, 24,
 		SWP_NOZORDER);
+//	SetWindowPos (GetDlgItem (hTab, IDC_BUTTON1), NULL,
+//		w - 60, h-33, 50, 24,
+//		SWP_NOZORDER);
 
 	return NULL;
 }
@@ -87,9 +87,9 @@ INT_PTR spacexpanse::MetalogTab::TabProc (HWND hWnd, UINT uMsg, WPARAM wParam, L
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {
 		case IDC_MSG:
-			SentRodMessageM(hWnd);
-			return TRUE;
-		case IDC_BUTTON1:
+//			SentRodMessageM(hWnd);
+//			return TRUE;
+//		case IDC_BUTTON1:
 			SentNostrMessage(hWnd);
 			return TRUE;
 		case IDC_MTL_CREDIT:
@@ -129,18 +129,25 @@ void SentNostrMessage(HWND hWnd)
 	HINSTANCE hDLL = LoadLibrary("libSpaceXpanse.dll");
 	if (hDLL != NULL)
 	{
-		typedef const char* (*NostrMessageFunc)(const char*, const char*);
-		NostrMessageFunc MessageFunc = (NostrMessageFunc)GetProcAddress(hDLL, "nostr_message");
-        if (MessageFunc != nullptr)
+		typedef const char* (*SentNostrMessageFunc)(const char*, const char*, const char*, const char*);
+		SentNostrMessageFunc SentMessageFunc = (SentNostrMessageFunc)GetProcAddress(hDLL, "send_nostr_message");
+//		typedef const char* (*NostrMessageFunc)(const char*, const char*);
+//		NostrMessageFunc MessageFunc = (NostrMessageFunc)GetProcAddress(hDLL, "nostr_message");
+		if (SentMessageFunc != nullptr)
 		{
             // Извикване на функцията
+			std::string url = "http://user1:pass1@127.0.0.1:18399/";
             std::string pubkey = "e7b4c8cba8a9f823e1a8f2c3d8f9e5c3f0a8b9c5e6d7f8e7c3a8f5e9f3c4d6e7";
+			HWND hEdit1 = GetDlgItem(hWnd, IDC_SCN_SAVE);
+			char currentUser[256];
+			GetWindowText(hEdit1, currentUser, 256);
+			std::string user = currentUser;
 			HWND hEdit2 = GetDlgItem(hWnd, IDC_SAVE_NAME);
 			char currentMess[1024];
 			GetWindowText(hEdit2, currentMess, 1024);
             std::string content = currentMess;
 
-			std::string result = MessageFunc(pubkey.c_str(), content.c_str());
+			std::string result = SentMessageFunc(url.c_str(), pubkey.c_str(), content.c_str(), user.c_str());
 			
 //			MessageBox(NULL, result.c_str(), "Nostr", MB_OK);
 		}
@@ -170,13 +177,18 @@ void SentRodMessageM(HWND hWnd)
 	HWND hEdit2 = GetDlgItem(hWnd, IDC_SAVE_NAME);
 	char currentMess[1024];
 	GetWindowText(hEdit2, currentMess, 1024);
-
+//	std::string sMess = "{\\\\\\\\\\\\\"\"\"}";
 	const char* url = "http://user1:pass1@127.0.0.1:18399/";
 	std::string json_data = "{\"jsonrpc\": \"1.0\", \"id\": \"curltest\", \"method\": \"name_update\", \"params\": [\"";
 	json_data = json_data + currentUser;
 	json_data = json_data + "\", \"{\\\"g\\\":{\\\"helloworld\\\":{\\\"m\\\":\\\"";
 	json_data = json_data + currentMess;
+//	json_data = json_data + sMess.c_str();
 	json_data = json_data + "\\\"}}}\"]}";
+	std::string filename = "out.txt";
+	std::ofstream outFile(filename);
+	outFile << json_data.c_str() << std::endl;
+	outFile.close();
 
 	curl_global_init(CURL_GLOBAL_DEFAULT);
 	curl = curl_easy_init();
