@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/SpaceXpanse/Metaverse/actions/workflows/build.yml/badge.svg?branch=0.1.4)](https://github.com/SpaceXpanse/Metaverse/actions/workflows/build.yml)
 
-# SpaceXpanse Metaverse Simulator
+# SpaceXpanse Metaverse Simulator 1.0.6
 
 SpaceXpanse is a simulator based on Newtonian mechanics. Its playground
 is our solar system with many of its major bodies – the sun, planets and many moons 
