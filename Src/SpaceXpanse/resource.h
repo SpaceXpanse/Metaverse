@@ -399,8 +399,8 @@
 #define IDC_MNU_JOY                     1264
 #define IDC_MNU_EXT                     1265
 #define IDC_MNU_ABT                     1266
-#define IDC_MNU_MTL                     1404
-#define IDC_SHADOW                      1267
+#define IDC_MNU_MTL                     1267
+#define IDC_SHADOW                      1404
 #define IDC_BLACKBOX                    1268
 #define IDC_OPT_STATIC1                 1270
 #define IDC_OPT_STATIC2                 1271

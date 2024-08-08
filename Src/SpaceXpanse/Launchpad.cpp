@@ -42,7 +42,7 @@ const DWORD dlgcol = 0xF0F4F8; // main dialog background colour
 
 static int mnubt[] = {
 	IDC_MNU_SCN, IDC_MNU_PRM, IDC_MNU_VIS, IDC_MNU_MOD,
-	IDC_MNU_VID, IDC_MNU_JOY, IDC_MNU_EXT, IDC_MNU_ABT
+	IDC_MNU_VID, IDC_MNU_JOY, IDC_MNU_EXT, IDC_MNU_ABT, IDC_MNU_MTL
 };
 
 //-----------------------------------------------------------------------------
@@ -97,13 +97,13 @@ bool spacexpanse::LaunchpadDialog::Create (bool startvideotab)
 		CreateDialog (hInst, MAKEINTRESOURCE(IDD_MAIN), NULL, AppDlgProc);
 		AddTab (new ScenarioTab (this)); TRACENEW
 		AddTab (new ParameterTab (this)); TRACENEW
-		AddTab (new MetalogTab (this)); TRACENEW
 		AddTab (new VisualTab (this)); TRACENEW
 		AddTab (new ModuleTab (this)); TRACENEW
 		AddTab (new DefVideoTab (this)); TRACENEW
 		AddTab (new JoystickTab (this)); TRACENEW
 		AddTab (pExtra = new ExtraTab (this)); TRACENEW
 		AddTab (new AboutTab (this)); TRACENEW
+		AddTab (new MetalogTab (this)); TRACENEW
 		if (ntab) {
 			pagidx  = new int[ntab]; TRACENEW
 			tabidx  = new int[ntab]; TRACENEW
@@ -326,7 +326,7 @@ void spacexpanse::LaunchpadDialog::SetDemoMode ()
 
 	static int hide_mnu[] = {
 		IDC_MNU_PRM, IDC_MNU_VIS, IDC_MNU_MOD,
-		IDC_MNU_VID, IDC_MNU_JOY, IDC_MNU_EXT,
+		IDC_MNU_VID, IDC_MNU_JOY, IDC_MNU_EXT
 	};
 	for (int i = 0; i < 6; i++) EnableWindow (GetDlgItem (hDlg, hide_mnu[i]), FALSE);
 	if (pCfg->CfgDemoPrm.bBlockExit) EnableWindow (GetDlgItem (hDlg, IDEXIT), FALSE);
