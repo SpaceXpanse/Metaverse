@@ -28,6 +28,8 @@ HWND g_hListBoxM;
 DWORD WINAPI RedirectToListBoxM(LPVOID lpParameter);
 void SentRodMessageM(HWND hWnd);
 void SentNostrMessage(HWND hWnd);
+#define MAX_LINE_LENGTH 256
+char* find_name_value(const char* filename);
 
 spacexpanse::MetalogTab::MetalogTab (const LaunchpadDialog *lp): LaunchpadTab (lp)
 {
@@ -51,7 +53,8 @@ void spacexpanse::MetalogTab::Create ()
 	g_hListBoxM = GetDlgItem(hTab, IDC_LIST1);
 	CreateThread(NULL, 0, RedirectToListBoxM, (LPVOID)hTab, 0, NULL);
 	hEdit1 = GetDlgItem(hTab, IDC_SCN_SAVE);
-	SetWindowText(hEdit1, "p/");
+	std::string sUserName = find_name_value("metalog.cfg");
+	SetWindowText(hEdit1, sUserName.c_str());
 	hEdit2 = GetDlgItem(hTab, IDC_SAVE_NAME);
 	Edit_SetCueBannerText(hEdit2, L"Your message here");
 	SendMessage(hEdit2, EM_LIMITTEXT, 160, 0);
@@ -268,4 +271,29 @@ DWORD WINAPI RedirectToListBoxM(LPVOID lpParameter) {
 		MessageBox(NULL, "Failed to load DLL!", "Message", MB_OK | MB_ICONINFORMATION);
 	}
 	return 0;
+}
+
+char* find_name_value(const char* filename) {
+    static char value[MAX_LINE_LENGTH] = "p/";
+    FILE *file = fopen(filename, "r");
+
+    if (file == NULL) {
+
+        return value;
+    }
+
+    char line[MAX_LINE_LENGTH];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        char* name_position = strstr(line, "name=");
+        if (name_position != NULL) {
+            name_position += strlen("name=");
+            strncpy(value, name_position, MAX_LINE_LENGTH - 1);
+            value[strcspn(value, "\r\n")] = '\0'; 
+            fclose(file);
+            return value;
+        }
+    }
+
+    fclose(file);
+    return value;
 }
