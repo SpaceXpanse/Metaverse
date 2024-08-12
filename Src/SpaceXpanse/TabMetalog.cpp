@@ -55,6 +55,8 @@ void spacexpanse::MetalogTab::Create ()
 	hEdit1 = GetDlgItem(hTab, IDC_SCN_SAVE);
 	std::string sUserName = find_name_value("metalog.cfg");
 	SetWindowText(hEdit1, sUserName.c_str());
+    // Remove trailing spaces from sUserName
+    sUserName.erase(sUserName.find_last_not_of(" \t\n\r\f\v") + 1);
 	hEdit2 = GetDlgItem(hTab, IDC_SAVE_NAME);
 	Edit_SetCueBannerText(hEdit2, L"Your message here");
 	SendMessage(hEdit2, EM_LIMITTEXT, 160, 0);
